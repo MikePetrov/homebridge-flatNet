@@ -1,0 +1,20 @@
+{
+  "name": "homebridge-sampleNet",
+  "version": "0.0.1",
+  "description": "SampleNet plugin for homebridge: https://github.com/nfarina/homebridge",
+  "license": "ISC",
+  "keywords": [
+    "homebridge-plugin"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/MikePetrov/homebridge-simpleNet.git"
+  },
+  "bugs": {
+    "url": "http://github.com/MikePetrov/homebridge-simpleNet/issues"
+  },
+  "engines": {
+    "node": ">=5.10.0",
+    "homebridge": ">=0.2.0"
+  }
+}
