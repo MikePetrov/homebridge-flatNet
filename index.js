@@ -5,22 +5,26 @@ module.exports = function(homebridge) {
   console.log("homebridge API version: " + homebridge.version);
 
   // Accessory must be created from PlatformAccessory Constructor
+  // Аксессуар должен быть создан из PlatformAccessory Constructor
   Accessory = homebridge.platformAccessory;
 
   // Service and Characteristic are from hap-nodejs
+  // Сервис и характеристика - из hap-nodejs
   Service = homebridge.hap.Service;
   Characteristic = homebridge.hap.Characteristic;
   UUIDGen = homebridge.hap.uuid;
   
   // For platform plugin to be considered as dynamic platform plugin,
   // registerPlatform(pluginName, platformName, constructor, dynamic), dynamic must be true
+  // Плагин платформы, который будет рассматриваться как плагин динамической платформы,
+  // registerPlatform (pluginName, platformName, constructor, dynamic), динамическое должно быть истинным
   homebridge.registerPlatform("homebridge-flatNet", "FlatNet", FlatNet, true);
 }
 
 // Platform constructor
 // config may be null
 // api may be null if launched from old homebridge version
-function SamplePlatform(log, config, api) {
+function flatNet(log, config, api) {
   log("FlatNet Init");
   var platform = this;
   this.log = log;
@@ -95,7 +99,7 @@ SamplePlatform.prototype.configureAccessory = function(accessory) {
 
 // Handler will be invoked when user try to config your plugin.
 // Callback can be cached and invoke when necessary.
-SamplePlatform.prototype.configurationRequestHandler = function(context, request, callback) {
+flatNet.prototype.configurationRequestHandler = function(context, request, callback) {
   this.log("Context: ", JSON.stringify(context));
   this.log("Request: ", JSON.stringify(request));
 
@@ -174,7 +178,7 @@ SamplePlatform.prototype.configurationRequestHandler = function(context, request
 }
 
 // Sample function to show how developer can add accessory dynamically from outside event
-SamplePlatform.prototype.addAccessory = function(accessoryName) {
+flatNet.prototype.addAccessory = function(accessoryName) {
   this.log("Add Accessory");
   var platform = this;
   var uuid;
@@ -201,7 +205,7 @@ SamplePlatform.prototype.addAccessory = function(accessoryName) {
   this.api.registerPlatformAccessories("homebridge-flatNet", "FlatNet", [newAccessory]);
 }
 
-SamplePlatform.prototype.updateAccessoriesReachability = function() {
+flatNet.prototype.updateAccessoriesReachability = function() {
   this.log("Update Reachability");
   for (var index in this.accessories) {
     var accessory = this.accessories[index];
@@ -210,7 +214,7 @@ SamplePlatform.prototype.updateAccessoriesReachability = function() {
 }
 
 // Sample function to show how developer can remove accessory dynamically from outside event
-SamplePlatform.prototype.removeAccessory = function() {
+flatNet.prototype.removeAccessory = function() {
   this.log("Remove Accessory");
   this.api.unregisterPlatformAccessories("homebridge-flatNet", "FlatNet", this.accessories);
 
