@@ -1,17 +1,17 @@
 {
-  "name": "homebridge-sampleNet",
+  "name": "homebridge-flatNet",
   "version": "0.0.1",
-  "description": "SampleNet plugin for homebridge: https://github.com/nfarina/homebridge",
+  "description": "FlatNet plugin for homebridge: https://github.com/nfarina/homebridge",
   "license": "ISC",
   "keywords": [
     "homebridge-plugin"
   ],
   "repository": {
     "type": "git",
-    "url": "git://github.com/MikePetrov/homebridge-simpleNet.git"
+    "url": "git://github.com/MikePetrov/homebridge-flatNet.git"
   },
   "bugs": {
-    "url": "http://github.com/MikePetrov/homebridge-simpleNet/issues"
+    "url": "http://github.com/MikePetrov/homebridge-flatNet/issues"
   },
   "engines": {
     "node": ">=5.10.0",
