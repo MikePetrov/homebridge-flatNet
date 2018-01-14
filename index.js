@@ -1,4 +1,4 @@
-var http = require('http');
+var exec = require("child_process").exec;
 var Accessory, Service, Characteristic, UUIDGen;
 
 module.exports = function(homebridge) {
@@ -31,29 +31,8 @@ function flatNet(log, config, api) {
   this.config = config;
   this.accessories = [];
 
-  this.requestServer = http.createServer(function(request, response) {
-    if (request.url === "/add") {
-      this.addAccessory(new Date().toISOString());
-      response.writeHead(204);
-      response.end();
-    }
-
-    if (request.url == "/reachability") {
-      this.updateAccessoriesReachability();
-      response.writeHead(204);
-      response.end();
-    }
-
-    if (request.url == "/remove") {
-      this.removeAccessory();
-      response.writeHead(204);
-      response.end();
-    }
-  }.bind(this));
-
-  this.requestServer.listen(18081, function() {
-    platform.log("Server Listening...");
-  });
+  this.accessories = {};
+  this.polling = {};
 
   if (api) {
       // Save the API object as plugin needs to register new accessory via this object
@@ -71,7 +50,8 @@ function flatNet(log, config, api) {
 // Function invoked when homebridge tries to restore cached accessory.
 // Developer can configure accessory at here (like setup event handler).
 // Update current value.
-SamplePlatform.prototype.configureAccessory = function(accessory) {
+// Востановление из кеша
+flatNet.prototype.configureAccessory = function(accessory) {
   this.log(accessory.displayName, "Configure Accessory");
   var platform = this;
 
