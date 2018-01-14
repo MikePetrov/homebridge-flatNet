@@ -78,12 +78,14 @@ flatNet.prototype.configureAccessory = function(accessory) {
 }
 
 // Handler will be invoked when user try to config your plugin.
+// Обработчик будет вызываться, когда пользователь попытается настроить ваш плагин.
 // Callback can be cached and invoke when necessary.
+// Обратный вызов можно кэшировать и при необходимости активировать.
 flatNet.prototype.configurationRequestHandler = function(context, request, callback) {
   this.log("Context: ", JSON.stringify(context));
   this.log("Request: ", JSON.stringify(request));
 
-  // Check the request response
+  // Проверка ответа на запрос
   if (request && request.response && request.response.inputs && request.response.inputs.name) {
     this.addAccessory(request.response.inputs.name);
 
@@ -150,14 +152,14 @@ flatNet.prototype.configurationRequestHandler = function(context, request, callb
   // "actionURL": "https://google.com"
   // }
 
-  // Plugin can set context to allow it track setup process
+  // Плагин может установить контекст, чтобы он мог отслеживать процесс настройки
   context.ts = "Hello";
 
-  // Invoke callback to update setup UI
+  // Повторный вызов для обновления UI
   callback(respDict);
 }
 
-// Sample function to show how developer can add accessory dynamically from outside event
+// Пример функции, показывающей, как разработчик может динамически добавлять аксессуар извне
 flatNet.prototype.addAccessory = function(accessoryName) {
   this.log("Add Accessory");
   var platform = this;
@@ -173,7 +175,7 @@ flatNet.prototype.addAccessory = function(accessoryName) {
   // Plugin can save context on accessory to help restore accessory in configureAccessory()
   // newAccessory.context.something = "Something"
   
-  // Make sure you provided a name for service, otherwise it may not visible in some HomeKit apps
+  // Убедитесь, что вы предоставили имя для службы, иначе оно может не отображаться в некоторых приложениях HomeKit
   newAccessory.addService(Service.Lightbulb, "Test Light")
   .getCharacteristic(Characteristic.On)
   .on('set', function(value, callback) {
@@ -193,7 +195,7 @@ flatNet.prototype.updateAccessoriesReachability = function() {
   }
 }
 
-// Sample function to show how developer can remove accessory dynamically from outside event
+// Пример функции, показывающей, как разработчик может динамически удалять аксессуар извне
 flatNet.prototype.removeAccessory = function() {
   this.log("Remove Accessory");
   this.api.unregisterPlatformAccessories("homebridge-flatNet", "FlatNet", this.accessories);
